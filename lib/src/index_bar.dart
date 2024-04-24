@@ -6,8 +6,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/services.dart';
 
-//test
-
 /// IndexHintBuilder.
 typedef IndexHintBuilder = Widget Function(BuildContext context, String tag);
 typedef IndexWidgetBuilder = Widget Function(BuildContext context, int index);
@@ -453,7 +451,7 @@ class _IndexBarState extends State<IndexBar> {
       child: BaseIndexBar(
         data: widget.data,
         width: widget.width,
-        itemHeight: widget.itemHeight,
+        // itemHeight: widget.itemHeight,
         hapticFeedback: widget.options.hapticFeedback,
         itemBuilder: widget.builder ??
             (BuildContext context, int index) {
@@ -542,7 +540,7 @@ class _BaseIndexBarState extends State<BaseIndexBar> {
           : widget.itemBuilder!(context, index);
       return SizedBox(
         width: widget.width,
-        height: widget.itemHeight,
+        //height: widget.itemHeight,
         child: child,
       );
     });
