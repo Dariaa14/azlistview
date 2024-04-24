@@ -6,6 +6,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/services.dart';
 
+//test
+
 /// IndexHintBuilder.
 typedef IndexHintBuilder = Widget Function(BuildContext context, String tag);
 typedef IndexWidgetBuilder = Widget Function(BuildContext context, int index);
@@ -23,8 +25,7 @@ abstract class IndexBarDragListener {
 /// Internal implementation of [ItemPositionsListener].
 class IndexBarDragNotifier implements IndexBarDragListener {
   @override
-  final ValueNotifier<IndexBarDragDetails> dragDetails =
-      ValueNotifier(IndexBarDragDetails());
+  final ValueNotifier<IndexBarDragDetails> dragDetails = ValueNotifier(IndexBarDragDetails());
 }
 
 /// IndexModel.
@@ -130,8 +131,7 @@ class IndexBarOptions {
       shape: BoxShape.rectangle,
       borderRadius: BorderRadius.all(Radius.circular(6)),
     ),
-    this.indexHintTextStyle =
-        const TextStyle(fontSize: 24.0, color: Colors.white),
+    this.indexHintTextStyle = const TextStyle(fontSize: 24.0, color: Colors.white),
     this.indexHintChildAlignment = Alignment.center,
     this.indexHintAlignment = Alignment.center,
     this.indexHintPosition,
@@ -267,7 +267,7 @@ class IndexBar extends StatefulWidget {
   final IndexBarController? controller;
 
   /// The builder of index.
-  final IndexWidgetBuilder? builder; 
+  final IndexWidgetBuilder? builder;
 
   @override
   _IndexBarState createState() => _IndexBarState();
@@ -291,14 +291,11 @@ class _IndexBarState extends State<IndexBar> {
 
   void _valueChanged() {
     if (widget.indexBarDragNotifier == null) return;
-    IndexBarDragDetails details =
-        widget.indexBarDragNotifier!.dragDetails.value;
+    IndexBarDragDetails details = widget.indexBarDragNotifier!.dragDetails.value;
     selectIndex = details.index!;
     indexTag = details.tag!;
     action = details.action!;
-    floatTop = details.globalPositionY! +
-        widget.itemHeight / 2 -
-        widget.options.indexHintHeight / 2;
+    floatTop = details.globalPositionY! + widget.itemHeight / 2 - widget.options.indexHintHeight / 2;
 
     if (_isActionDown()) {
       _addOverlay(context);
@@ -307,8 +304,7 @@ class _IndexBarState extends State<IndexBar> {
     }
 
     if (widget.options.needRebuild) {
-      if (widget.options.ignoreDragCancel &&
-          action == IndexBarDragDetails.actionCancel) {
+      if (widget.options.ignoreDragCancel && action == IndexBarDragDetails.actionCancel) {
       } else {
         setState(() {});
       }
@@ -316,8 +312,7 @@ class _IndexBarState extends State<IndexBar> {
   }
 
   bool _isActionDown() {
-    return action == IndexBarDragDetails.actionDown ||
-        action == IndexBarDragDetails.actionUpdate;
+    return action == IndexBarDragDetails.actionDown || action == IndexBarDragDetails.actionUpdate;
   }
 
   @override
@@ -372,8 +367,7 @@ class _IndexBarState extends State<IndexBar> {
                 widget.options.indexHintWidth +
                 widget.options.indexHintOffset.dx;
             top = floatTop + widget.options.indexHintOffset.dy;
-          } else if (widget.options.indexHintAlignment ==
-              Alignment.centerLeft) {
+          } else if (widget.options.indexHintAlignment == Alignment.centerLeft) {
             left = kIndexBarWidth + widget.options.indexHintOffset.dx;
             top = floatTop + widget.options.indexHintOffset.dy;
           } else {
@@ -411,22 +405,14 @@ class _IndexBarState extends State<IndexBar> {
     Decoration? decoration;
     TextStyle? textStyle;
     if (widget.options.downItemDecoration != null) {
-      decoration = (_isActionDown() && selectIndex == index)
-          ? widget.options.downItemDecoration
-          : null;
-      textStyle = (_isActionDown() && selectIndex == index)
-          ? widget.options.downTextStyle
-          : widget.options.textStyle;
+      decoration = (_isActionDown() && selectIndex == index) ? widget.options.downItemDecoration : null;
+      textStyle = (_isActionDown() && selectIndex == index) ? widget.options.downTextStyle : widget.options.textStyle;
     } else if (widget.options.selectItemDecoration != null) {
-      decoration =
-          (selectIndex == index) ? widget.options.selectItemDecoration : null;
-      textStyle = (selectIndex == index)
-          ? widget.options.selectTextStyle
-          : widget.options.textStyle;
+      decoration = (selectIndex == index) ? widget.options.selectItemDecoration : null;
+      textStyle = (selectIndex == index) ? widget.options.selectTextStyle : widget.options.textStyle;
     } else {
-      textStyle = _isActionDown()
-          ? (widget.options.downTextStyle ?? widget.options.textStyle)
-          : widget.options.textStyle;
+      textStyle =
+          _isActionDown() ? (widget.options.downTextStyle ?? widget.options.textStyle) : widget.options.textStyle;
     }
 
     Widget child;
@@ -459,9 +445,7 @@ class _IndexBarState extends State<IndexBar> {
   Widget build(BuildContext context) {
     return Container(
       color: _isActionDown() ? widget.options.downColor : widget.options.color,
-      decoration: _isActionDown()
-          ? widget.options.downDecoration
-          : widget.options.decoration,
+      decoration: _isActionDown() ? widget.options.downDecoration : widget.options.decoration,
       width: widget.width,
       height: widget.height,
       margin: widget.margin,
@@ -471,9 +455,10 @@ class _IndexBarState extends State<IndexBar> {
         width: widget.width,
         itemHeight: widget.itemHeight,
         hapticFeedback: widget.options.hapticFeedback,
-        itemBuilder: widget.builder ?? (BuildContext context, int index) {
-          return _buildItem(context, index);
-        },
+        itemBuilder: widget.builder ??
+            (BuildContext context, int index) {
+              return _buildItem(context, index);
+            },
         indexBarDragNotifier: widget.indexBarDragNotifier,
       ),
     );
@@ -528,8 +513,7 @@ class _BaseIndexBarState extends State<BaseIndexBar> {
   /// trigger drag event.
   _triggerDragEvent(int action) {
     if (widget.hapticFeedback &&
-        (action == IndexBarDragDetails.actionDown ||
-            action == IndexBarDragDetails.actionUpdate)) {
+        (action == IndexBarDragDetails.actionDown || action == IndexBarDragDetails.actionUpdate)) {
       HapticFeedback.vibrate();
     }
     widget.indexBarDragNotifier?.dragDetails.value = IndexBarDragDetails(
@@ -554,8 +538,7 @@ class _BaseIndexBarState extends State<BaseIndexBar> {
   Widget build(BuildContext context) {
     List<Widget> children = List.generate(widget.data.length, (index) {
       Widget child = widget.itemBuilder == null
-          ? Center(
-              child: Text('${widget.data[index]}', style: widget.textStyle))
+          ? Center(child: Text('${widget.data[index]}', style: widget.textStyle))
           : widget.itemBuilder!(context, index);
       return SizedBox(
         width: widget.width,
