@@ -509,6 +509,7 @@ class _BaseIndexBarState extends State<BaseIndexBar> {
   /// get index.
   int _getIndex(double offset) {
     int index = offset ~/ (widget.height / widget.data.length);
+    print('[IndexBar] index = $index (height: ${widget.height}, dataLength: ${widget.data.length})');
     return math.min(index, widget.data.length - 1);
   }
 
