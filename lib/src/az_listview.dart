@@ -23,6 +23,7 @@ class AzListView extends StatefulWidget {
     this.indexBarData = kIndexBarData,
     this.indexBarWidth = kIndexBarWidth,
     this.indexBarHeight = kIndexBarItemHeight * 27,
+    this.numberOfItemsIndex = 27,
     this.indexBarItemHeight = kIndexBarItemHeight,
     this.hapticFeedback = false,
     this.indexBarAlignment = Alignment.centerRight,
@@ -79,6 +80,8 @@ class AzListView extends StatefulWidget {
 
   /// IndexBar Height.
   final double indexBarHeight;
+
+  final int numberOfItemsIndex;
 
   /// IndexBar Item Height.
   final double indexBarItemHeight;
@@ -207,6 +210,7 @@ class _AzListViewState extends State<AzListView> {
             itemHeight: widget.indexBarItemHeight,
             margin: widget.indexBarMargin,
             indexHintBuilder: widget.indexHintBuilder,
+            numberOfItems: widget.numberOfItemsIndex,
             indexBarDragListener: dragListener,
             options: widget.indexBarOptions,
             controller: indexBarController,
