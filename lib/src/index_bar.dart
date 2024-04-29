@@ -226,7 +226,7 @@ class IndexBar extends StatefulWidget {
     Key? key,
     this.data = kIndexBarData,
     this.width = kIndexBarWidth,
-    this.height,
+    this.height = 27 * kIndexBarItemHeight,
     this.itemHeight = kIndexBarItemHeight,
     this.margin,
     this.indexHintBuilder,
@@ -244,7 +244,7 @@ class IndexBar extends StatefulWidget {
   final double width;
 
   /// IndexBar height.
-  final double? height;
+  final double height;
 
   /// IndexBar item height(def:16).
   final double itemHeight;
@@ -451,6 +451,7 @@ class _IndexBarState extends State<IndexBar> {
       child: BaseIndexBar(
         data: widget.data,
         width: widget.width,
+        height: widget.height,
         // itemHeight: widget.itemHeight,
         hapticFeedback: widget.options.hapticFeedback,
         itemBuilder: widget.builder ??
@@ -468,6 +469,7 @@ class BaseIndexBar extends StatefulWidget {
     Key? key,
     this.data = kIndexBarData,
     this.width = kIndexBarWidth,
+    this.height = kIndexBarItemHeight * 27,
     this.itemHeight = kIndexBarItemHeight,
     this.hapticFeedback = false,
     this.textStyle = const TextStyle(fontSize: 12.0, color: Color(0xFF666666)),
@@ -480,6 +482,8 @@ class BaseIndexBar extends StatefulWidget {
 
   /// IndexBar width(def:30).
   final double width;
+
+  final double height;
 
   /// IndexBar item height(def:16).
   final double itemHeight;
@@ -504,7 +508,7 @@ class _BaseIndexBarState extends State<BaseIndexBar> {
 
   /// get index.
   int _getIndex(double offset) {
-    int index = offset ~/ widget.itemHeight;
+    int index = offset ~/ (widget.height / widget.data.length);
     return math.min(index, widget.data.length - 1);
   }
 
